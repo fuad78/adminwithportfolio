@@ -1,0 +1,121 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    PORTFOLIO WEBSITE - QUICK START GUIDE                    ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📋 STEP 1: INSTALL XAMPP (if not already installed)
+   Download: https://www.apachefriends.org/
+   Install and start Apache + MySQL services
+
+📋 STEP 2: SETUP DATABASE
+   Option A - Using phpMyAdmin (EASIEST):
+   1. Open: http://localhost/phpmyadmin
+   2. Click "SQL" tab
+   3. Open file: setup_database.sql
+   4. Copy ALL contents
+   5. Paste into SQL textarea
+   6. Click "Go"
+
+   Option B - Using Command Line:
+   1. Open Command Prompt
+   2. cd C:\xampp\mysql\bin
+   3. mysql -u root -p
+   4. Run: source [path-to]\setup_database.sql
+
+📋 STEP 3: COPY FILES
+   Copy entire "newport-master" folder to:
+   C:\xampp\htdocs\newport-master
+
+📋 STEP 4: ACCESS YOUR SITE
+   Frontend: http://localhost/newport-master/
+   Admin: http://localhost/newport-master/admin/login.php
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔐 ADMIN PANEL CREDENTIALS:
+
+   URL: http://localhost/newport-master/admin/login.php
+   Username: admin
+   Password: Admin@2024
+
+   ⚠️ CHANGE PASSWORD IMMEDIATELY!
+   Use: http://localhost/newport-master/setup_password.php
+
+═══════════════════════════════════════════════════════════════════════════════
+
+💾 DATABASE INFO:
+
+   Database: portfolio_db
+   User: portfolio_user
+   Password: Portfolio@2024
+   (Already configured in config.php)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ ADMIN PANEL FEATURES:
+
+   ✓ Home Section - Edit profile, skills, introduction
+   ✓ About Section - Edit about content
+   ✓ Services - Add/Edit/Delete services
+   ✓ Projects - Add/Edit/Delete projects
+   ✓ Blog - Add/Edit/Delete blog posts
+   ✓ Contacts - View all contact form submissions
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📝 HOW TO ADD BLOG POSTS:
+
+   1. Login to admin panel
+   2. Click "Blog" from dashboard
+   3. Fill in the form:
+      - Title
+      - Author (default: KM Fuad Hasan)
+      - Image URL
+      - Date
+      - Excerpt (short description)
+      - Content (full article)
+   4. Click "Add Post"
+   5. View on: http://localhost/newport-master/blog.php
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📝 HOW TO ADD PROJECTS:
+
+   1. Login to admin panel
+   2. Click "Projects" from dashboard
+   3. Fill in the form:
+      - Title
+      - Image URL
+      - Description
+      - Tags (comma-separated: Tag1, Tag2, Tag3)
+      - Display Order (0, 1, 2, etc.)
+   4. Click "Add Project"
+   5. View on: http://localhost/newport-master/projects.php
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 TROUBLESHOOTING:
+
+   Problem: Database connection error
+   Solution: 
+   - Check MySQL is running (XAMPP Control Panel)
+   - Verify credentials in config.php match setup_database.sql
+
+   Problem: Page not found (404)
+   Solution:
+   - Check files are in C:\xampp\htdocs\newport-master
+   - Try: http://localhost/newport-master/index.php
+
+   Problem: Can't login to admin
+   Solution:
+   - Verify database has admin user
+   - Use setup_password.php to reset password
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📚 For detailed instructions, see: SETUP_INSTRUCTIONS.md
+📋 For credentials, see: CREDENTIALS.txt
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+

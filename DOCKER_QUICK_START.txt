@@ -1,0 +1,96 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    DOCKER QUICK START GUIDE                                  ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📋 PREREQUISITES:
+   ✓ Docker Desktop installed and running
+   ✓ Docker Compose installed (included with Docker Desktop)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 QUICK START (3 STEPS):
+
+   1. Open Command Prompt or PowerShell in project directory
+   
+   2. Run this command:
+      docker-compose up -d
+   
+   3. Open browser:
+      http://localhost:8080
+
+   That's it! Your site is now running! 🎉
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔐 ADMIN PANEL ACCESS:
+
+   URL: http://localhost:8080/admin/login.php
+   Username: admin
+   Password: Admin@2024
+
+   ⚠️ Change password immediately after first login!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📝 USEFUL COMMANDS:
+
+   Start containers:
+   > docker-compose up -d
+
+   Stop containers:
+   > docker-compose down
+
+   View logs:
+   > docker-compose logs -f
+
+   Rebuild containers:
+   > docker-compose up -d --build
+
+   Stop and remove everything:
+   > docker-compose down -v
+
+═══════════════════════════════════════════════════════════════════════════════
+
+💾 DATABASE INFO:
+
+   Host: mysql (service name in Docker)
+   Database: fuaditme_portfolio_db
+   User: fuaditme_portfolio_user
+   Password: Portfolio@2024
+   Port: 3306 (exposed to host)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ WHAT HAPPENS AUTOMATICALLY:
+
+   ✓ MySQL container starts
+   ✓ Database is created
+   ✓ User is created with privileges
+   ✓ Tables are created
+   ✓ Default data is inserted
+   ✓ PHP Apache container starts
+   ✓ Website is accessible on port 8080
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 TROUBLESHOOTING:
+
+   Problem: Port 8080 already in use
+   Solution: Edit docker-compose.yml, change "8080:80" to another port
+
+   Problem: Can't connect to database
+   Solution: Wait 30 seconds for MySQL to fully start, then refresh
+
+   Problem: Containers won't start
+   Solution: 
+   - Check Docker Desktop is running
+   - Run: docker-compose down -v
+   - Run: docker-compose up -d --build
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📚 For detailed instructions, see: DOCKER_SETUP.md
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
