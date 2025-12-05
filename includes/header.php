@@ -61,6 +61,9 @@
                     <a href="/contact.php" class="relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 group <?php echo (basename($_SERVER['PHP_SELF']) == 'contact.php') ? 'text-white bg-gradient-to-r from-purple-600 to-blue-500' : 'text-gray-600 hover:text-gray-900'; ?>">
                         <span class="relative z-10">Contact</span>
                     </a>
+                    <a href="/vlsm_calculator.php" class="relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 group <?php echo (basename($_SERVER['PHP_SELF']) == 'vlsm_calculator.php') ? 'text-white bg-gradient-to-r from-purple-600 to-blue-500' : 'text-gray-600 hover:text-gray-900'; ?>">
+                        <span class="relative z-10">VLSM Calculator</span>
+                    </a>
                 </div>
                 <div class="md:hidden flex items-center">
                     <button id="mobileMenuBtn" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">
@@ -79,6 +82,7 @@
                 <a href="/projects.php" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-500 hover:text-white">Projects</a>
                 <a href="/blog.php" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-500 hover:text-white">Blog</a>
                 <a href="/contact.php" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-500 hover:text-white">Contact</a>
+                <a href="/vlsm_calculator.php" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-500 hover:text-white">VLSM Calculator</a>
             </div>
         </div>
     </nav>

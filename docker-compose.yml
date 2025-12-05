@@ -10,7 +10,7 @@ services:
       MYSQL_USER: fuaditme_portfolio_user
       MYSQL_PASSWORD: Portfolio@2024
     ports:
-      - "3307:3306"
+      - "3308:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./setup_database.sql:/docker-entrypoint-initdb.d/setup_database.sql

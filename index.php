@@ -147,6 +147,3 @@ if (totalSkills > 0) {
 $conn->close();
 include 'includes/footer.php';
 ?>
-
-
-
