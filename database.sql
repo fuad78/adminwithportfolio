@@ -100,12 +100,12 @@ CREATE TABLE IF NOT EXISTS social_links (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert Default Admin User (password: admin123 - change this!)
--- Default password hash for 'admin123' - generated with PHP password_hash()
+-- Insert Default Admin User (password: Check2022# - change this!)
+-- Default password hash for 'Check2022#' - generated with PHP password_hash()
 -- To generate a new hash, use: password_hash('your_password', PASSWORD_DEFAULT)
 -- Or use setup_password.php script to set/reset password
 INSERT INTO admin_users (username, password, email) VALUES 
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@example.com');
+('admin', '$2y$10$LEwBHW56VEIJV5H3wltCm.LemcqjBkoCPgEgDS23Gw2zoDyZ0mDMy', 'admin@example.com');
 
 -- Insert Default Home Content
 INSERT INTO home_content (introduction) VALUES 

@@ -129,10 +129,10 @@ CREATE TABLE IF NOT EXISTS social_links (
 
 -- Insert Default Admin User
 -- Username: admin
--- Password: Admin@2024
+-- Password: Check2022#
 -- IMPORTANT: Change this password after first login!
 INSERT INTO admin_users (username, password, email) VALUES 
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@example.com')
+('admin', '$2y$10$LEwBHW56VEIJV5H3wltCm.LemcqjBkoCPgEgDS23Gw2zoDyZ0mDMy', 'admin@example.com')
 ON DUPLICATE KEY UPDATE username=username;
 
 -- Insert Default Home Content

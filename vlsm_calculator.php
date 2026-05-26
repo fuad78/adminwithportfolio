@@ -115,49 +115,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<main class="pt-16 min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            VLSM Subnet Calculator
-        </h1>
+<main class="pt-24 pb-16 min-h-screen relative overflow-hidden flex flex-col justify-center">
+    <!-- Extra Ambient Glows -->
+    <div class="absolute top-1/4 left-1/3 w-80 h-80 bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/3 w-96 h-96 bg-purple-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <!-- Page Title -->
+        <div class="text-center mb-10">
+            <h1 class="font-display text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-fuchsia-400 bg-clip-text text-transparent mb-3">
+                VLSM Subnet Calculator
+            </h1>
+            <div class="w-12 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full mb-4"></div>
+            <p class="text-slate-300 font-display font-medium text-lg max-w-xl mx-auto">
+                Calculate Variable Length Subnet Masks and visualize network topology
+            </p>
+        </div>
         
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Left Side: Animated Network Design -->
-            <div class="bg-white rounded-2xl shadow-xl p-6">
-                <h2 class="text-2xl font-semibold mb-6 text-gray-800">Network Topology</h2>
-                <div class="relative h-96 overflow-hidden" id="networkAnimation">
+            <div class="glass-card rounded-2xl p-6 border border-slate-800/80 shadow-2xl flex flex-col justify-between">
+                <h2 class="font-display text-lg font-bold text-slate-200 mb-4">Network Topology Map</h2>
+                
+                <div class="relative h-96 overflow-hidden bg-slate-950/40 rounded-xl border border-slate-900" id="networkAnimation">
                     <svg class="w-full h-full" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
                         <!-- Background Grid -->
                         <defs>
                             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E5E7EB" stroke-width="0.5" opacity="0.3"/>
+                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.2"/>
                             </pattern>
                             <radialGradient id="routerGradient" cx="50%" cy="50%">
-                                <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+                                <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#312e81;stop-opacity:1" />
                             </radialGradient>
                             <radialGradient id="nodeGradient" cx="50%" cy="50%">
-                                <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#6D28D9;stop-opacity:1" />
+                                <stop offset="0%" style="stop-color:#c084fc;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#581c87;stop-opacity:1" />
                             </radialGradient>
                         </defs>
                         <rect width="800" height="600" fill="url(#grid)"/>
                         
-                        <!-- Router -->
+                        <!-- Router Node -->
                         <g id="router">
-                            <rect x="350" y="250" width="100" height="60" rx="8" fill="url(#routerGradient)" opacity="0.9" class="router-box"/>
-                            <text x="400" y="285" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Router</text>
+                            <rect x="350" y="250" width="100" height="60" rx="10" fill="url(#routerGradient)" opacity="0.9" class="router-box"/>
+                            <text x="400" y="285" text-anchor="middle" fill="#f8fafc" font-family="Outfit" font-size="14" font-weight="bold">Gateway</text>
                             <!-- Status LEDs -->
-                            <circle cx="360" cy="270" r="4" fill="#10B981">
+                            <circle cx="360" cy="270" r="4" fill="#34d399">
                                 <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="360" cy="290" r="4" fill="#10B981">
+                            <circle cx="360" cy="290" r="4" fill="#34d399">
                                 <animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="440" cy="270" r="4" fill="#10B981">
+                            <circle cx="440" cy="270" r="4" fill="#34d399">
                                 <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
                             </circle>
-                            <circle cx="440" cy="290" r="4" fill="#10B981">
+                            <circle cx="440" cy="290" r="4" fill="#34d399">
                                 <animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
                             </circle>
                         </g>
@@ -183,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <!-- Connection Line -->
                                 <line x1="<?php echo $centerX; ?>" y1="<?php echo $centerY; ?>" 
                                       x2="<?php echo $x; ?>" y2="<?php echo $y; ?>" 
-                                      stroke="#6366F1" stroke-width="3" opacity="0.7" 
+                                      stroke="#818cf8" stroke-width="2.5" opacity="0.6" 
                                       stroke-dasharray="8,4" class="network-line">
                                     <animate attributeName="stroke-dashoffset" values="0;-12" dur="1.5s" repeatCount="indefinite"/>
                                 </line>
@@ -191,32 +203,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <!-- Department Node -->
                                 <g class="dept-node">
                                     <circle cx="<?php echo $x; ?>" cy="<?php echo $y; ?>" r="45" 
-                                            fill="url(#nodeGradient)" opacity="0.8">
-                                        <animate attributeName="r" values="45;48;45" dur="2s" repeatCount="indefinite"/>
+                                            fill="url(#nodeGradient)" opacity="0.7">
+                                        <animate attributeName="r" values="45;48;45" dur="2.5s" repeatCount="indefinite"/>
                                     </circle>
                                     <circle cx="<?php echo $x; ?>" cy="<?php echo $y; ?>" r="40" 
                                             fill="url(#nodeGradient)" opacity="0.9"/>
                                     <text x="<?php echo $x; ?>" y="<?php echo $y - 12; ?>" 
-                                          text-anchor="middle" fill="white" font-size="11" font-weight="bold">
+                                          text-anchor="middle" fill="#f8fafc" font-family="Outfit" font-size="11" font-weight="bold">
                                         <?php echo htmlspecialchars(substr($result['department'], 0, 12)); ?>
                                     </text>
                                     <text x="<?php echo $x; ?>" y="<?php echo $y + 3; ?>" 
-                                          text-anchor="middle" fill="white" font-size="10">
+                                          text-anchor="middle" fill="#e2e8f0" font-size="10">
                                         <?php echo $result['hosts']; ?> Hosts
                                     </text>
                                     <text x="<?php echo $x; ?>" y="<?php echo $y + 18; ?>" 
-                                          text-anchor="middle" fill="white" font-size="9" font-family="monospace">
+                                          text-anchor="middle" fill="#a5b4fc" font-size="9" font-family="monospace">
                                         /<?php echo $result['cidr']; ?>
                                     </text>
                                     <!-- Node Status Indicator -->
-                                    <circle cx="<?php echo $x + 30; ?>" cy="<?php echo $y - 30; ?>" r="5" fill="#10B981">
+                                    <circle cx="<?php echo $x + 30; ?>" cy="<?php echo $y - 30; ?>" r="5" fill="#34d399">
                                         <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite"/>
                                     </circle>
                                 </g>
                                 
                                 <!-- Data Flow Animation - Multiple Packets -->
                                 <?php for ($p = 0; $p < 3; $p++): ?>
-                                <circle r="4" fill="#10B981" opacity="0.8">
+                                <circle r="4" fill="#34d399" opacity="0.8">
                                     <animateMotion dur="2.5s" repeatCount="indefinite" begin="<?php echo ($index * 0.4) + ($p * 0.7); ?>s">
                                         <mpath href="#line-<?php echo $index; ?>"/>
                                     </animateMotion>
@@ -232,53 +244,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <g>
                                 <!-- Default Subnets -->
                                 <g>
-                                    <circle cx="200" cy="200" r="40" fill="url(#nodeGradient)" opacity="0.7">
-                                        <animate attributeName="r" values="40;43;40" dur="2s" repeatCount="indefinite"/>
+                                    <circle cx="200" cy="200" r="40" fill="url(#nodeGradient)" opacity="0.6">
+                                        <animate attributeName="r" values="40;43;40" dur="2.5s" repeatCount="indefinite"/>
                                     </circle>
-                                    <text x="200" y="205" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Dept 1</text>
-                                    <circle cx="230" cy="180" r="4" fill="#10B981">
+                                    <text x="200" y="205" text-anchor="middle" fill="#f8fafc" font-family="Outfit" font-size="11" font-weight="bold">Dept A</text>
+                                    <circle cx="230" cy="180" r="4" fill="#34d399">
                                         <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
                                     </circle>
                                 </g>
                                 <g>
-                                    <circle cx="600" cy="200" r="40" fill="url(#nodeGradient)" opacity="0.7">
-                                        <animate attributeName="r" values="40;43;40" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                                    <circle cx="600" cy="200" r="40" fill="url(#nodeGradient)" opacity="0.6">
+                                        <animate attributeName="r" values="40;43;40" dur="2.5s" begin="0.5s" repeatCount="indefinite"/>
                                     </circle>
-                                    <text x="600" y="205" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Dept 2</text>
-                                    <circle cx="630" cy="180" r="4" fill="#10B981">
+                                    <text x="600" y="205" text-anchor="middle" fill="#f8fafc" font-family="Outfit" font-size="11" font-weight="bold">Dept B</text>
+                                    <circle cx="630" cy="180" r="4" fill="#34d399">
                                         <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
                                     </circle>
                                 </g>
                                 <g>
-                                    <circle cx="200" cy="400" r="40" fill="url(#nodeGradient)" opacity="0.7">
-                                        <animate attributeName="r" values="40;43;40" dur="2s" begin="1s" repeatCount="indefinite"/>
+                                    <circle cx="200" cy="400" r="40" fill="url(#nodeGradient)" opacity="0.6">
+                                        <animate attributeName="r" values="40;43;40" dur="2.5s" begin="1s" repeatCount="indefinite"/>
                                     </circle>
-                                    <text x="200" y="405" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Dept 3</text>
-                                    <circle cx="230" cy="380" r="4" fill="#10B981">
+                                    <text x="200" y="405" text-anchor="middle" fill="#f8fafc" font-family="Outfit" font-size="11" font-weight="bold">Dept C</text>
+                                    <circle cx="230" cy="380" r="4" fill="#34d399">
                                         <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" begin="1s" repeatCount="indefinite"/>
                                     </circle>
                                 </g>
                                 <g>
-                                    <circle cx="600" cy="400" r="40" fill="url(#nodeGradient)" opacity="0.7">
-                                        <animate attributeName="r" values="40;43;40" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                                    <circle cx="600" cy="400" r="40" fill="url(#nodeGradient)" opacity="0.6">
+                                        <animate attributeName="r" values="40;43;40" dur="2.5s" begin="1.5s" repeatCount="indefinite"/>
                                     </circle>
-                                    <text x="600" y="405" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Dept 4</text>
-                                    <circle cx="630" cy="380" r="4" fill="#10B981">
+                                    <text x="600" y="405" text-anchor="middle" fill="#f8fafc" font-family="Outfit" font-size="11" font-weight="bold">Dept D</text>
+                                    <circle cx="630" cy="380" r="4" fill="#34d399">
                                         <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" begin="1.5s" repeatCount="indefinite"/>
                                     </circle>
                                 </g>
                                 
                                 <!-- Connection Lines -->
-                                <line x1="400" y1="280" x2="200" y2="200" stroke="#6366F1" stroke-width="3" opacity="0.5" stroke-dasharray="8,4">
+                                <line x1="400" y1="280" x2="200" y2="200" stroke="#818cf8" stroke-width="2.5" opacity="0.4" stroke-dasharray="8,4">
                                     <animate attributeName="stroke-dashoffset" values="0;-12" dur="1.5s" repeatCount="indefinite"/>
                                 </line>
-                                <line x1="400" y1="280" x2="600" y2="200" stroke="#6366F1" stroke-width="3" opacity="0.5" stroke-dasharray="8,4">
+                                <line x1="400" y1="280" x2="600" y2="200" stroke="#818cf8" stroke-width="2.5" opacity="0.4" stroke-dasharray="8,4">
                                     <animate attributeName="stroke-dashoffset" values="0;-12" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
                                 </line>
-                                <line x1="400" y1="280" x2="200" y2="400" stroke="#6366F1" stroke-width="3" opacity="0.5" stroke-dasharray="8,4">
+                                <line x1="400" y1="280" x2="200" y2="400" stroke="#818cf8" stroke-width="2.5" opacity="0.4" stroke-dasharray="8,4">
                                     <animate attributeName="stroke-dashoffset" values="0;-12" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
                                 </line>
-                                <line x1="400" y1="280" x2="600" y2="400" stroke="#6366F1" stroke-width="3" opacity="0.5" stroke-dasharray="8,4">
+                                <line x1="400" y1="280" x2="600" y2="400" stroke="#818cf8" stroke-width="2.5" opacity="0.4" stroke-dasharray="8,4">
                                     <animate attributeName="stroke-dashoffset" values="0;-12" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
                                 </line>
                             </g>
@@ -290,38 +302,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- Right Side: Calculator Form and Results -->
             <div class="space-y-6">
                 <!-- Input Form -->
-                <div class="bg-white rounded-2xl shadow-xl p-6">
-                    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Calculator Input</h2>
-                    <form method="POST" id="vlsmForm">
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Base Network Address</label>
-                            <div class="flex gap-2">
+                <div class="glass-card rounded-2xl p-6 border border-slate-800/80 shadow-2xl">
+                    <h2 class="font-display text-lg font-bold text-slate-200 mb-4">Configuration Inputs</h2>
+                    
+                    <form method="POST" id="vlsmForm" class="space-y-6">
+                        <!-- Base IP Address -->
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Base Network Address &amp; CIDR</label>
+                            <div class="flex gap-3">
                                 <input type="text" name="base_network" value="<?php echo htmlspecialchars($baseNetwork); ?>" 
                                        placeholder="192.168.1.0" required
-                                       class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                <span class="text-gray-500 self-center">/</span>
-                                <input type="number" name="base_cidr" value="<?php echo htmlspecialchars($baseCIDR); ?>" 
+                                       class="flex-grow bg-slate-950/85 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-mono text-sm">
+                                <span class="text-slate-500 self-center font-bold">/</span>
+                                <input type="number" name="base_cidr" value="<?php echo htmlspecialchars($baseCIDR ?: 24); ?>" 
                                        min="1" max="30" required
-                                       class="w-20 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                       class="w-20 bg-slate-950/85 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-mono text-sm">
                             </div>
                         </div>
                         
-                        <div class="mb-4">
-                            <div class="flex justify-between items-center mb-2">
-                                <label class="block text-sm font-medium text-gray-700">Departments</label>
+                        <!-- Subnets/Departments -->
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400">Subnet Requests</label>
                                 <button type="button" onclick="addDepartment()" 
-                                        class="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
-                                    + Add Department
+                                        class="text-xs bg-indigo-500/10 text-indigo-400 hover:bg-indigo-600 hover:text-white border border-indigo-500/20 px-3 py-1 rounded-lg font-medium transition-colors">
+                                    + Add Subnet
                                 </button>
                             </div>
-                            <div id="departments">
-                                <div class="department-row mb-3 flex gap-2">
-                                    <input type="text" name="dept_name_0" placeholder="Department Name" required
-                                           class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <div id="departments" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                                <div class="department-row flex gap-2">
+                                    <input type="text" name="dept_name_0" placeholder="Department Name (e.g. IT)" required
+                                           class="flex-grow bg-slate-950/85 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all text-xs">
                                     <input type="number" name="dept_hosts_0" placeholder="Hosts" min="1" required
-                                           class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                           class="w-24 bg-slate-950/85 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-mono text-xs">
                                     <button type="button" onclick="removeDepartment(this)" 
-                                            class="text-red-600 hover:text-red-800 px-3">
+                                            class="text-rose-500 hover:text-rose-400 px-2 font-bold">
                                         ✕
                                     </button>
                                 </div>
@@ -329,85 +344,84 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         
                         <button type="submit" 
-                                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
-                            Calculate VLSM
+                                class="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-display font-semibold hover:brightness-110 active:scale-[0.98] transition-all duration-300 shadow-lg shadow-indigo-600/10">
+                            Calculate Subnets
                         </button>
                     </form>
                 </div>
-                
-                <!-- Results Table -->
-                <?php if (!empty($results)): ?>
-                <div class="bg-white rounded-2xl shadow-xl p-6 overflow-x-auto">
-                    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Calculation Results</h2>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gradient-to-r from-blue-600 to-purple-600">
-                                <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Department</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Hosts</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Network Address</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Subnet Mask</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">CIDR</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Broadcast</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Usable IPs</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <?php foreach ($results as $result): ?>
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        <?php echo htmlspecialchars($result['department']); ?>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
-                                        <?php echo $result['hosts']; ?>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 font-mono">
-                                        <?php echo $result['network']; ?>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 font-mono">
-                                        <?php echo $result['subnet_mask']; ?>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 font-mono">
-                                        /<?php echo $result['cidr']; ?>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 font-mono">
-                                        <?php echo $result['broadcast']; ?>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 font-mono">
-                                        <?php echo $result['first_usable']; ?> - <?php echo $result['last_usable']; ?>
-                                        <br>
-                                        <span class="text-xs text-gray-500">(<?php echo $result['usable_count']; ?> usable)</span>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <?php endif; ?>
             </div>
         </div>
+
+        <!-- Results Block -->
+        <?php if (!empty($results)): ?>
+        <div class="mt-8 glass-card rounded-2xl p-6 border border-slate-800/80 shadow-2xl overflow-hidden">
+            <h2 class="font-display text-lg font-bold text-slate-200 mb-4">Calculation Results Table</h2>
+            <div class="overflow-x-auto rounded-xl border border-slate-900 bg-slate-950/40">
+                <table class="min-w-full divide-y divide-slate-900 font-mono text-xs text-slate-300">
+                    <thead class="bg-slate-900/60 font-display text-slate-400 uppercase tracking-wider text-[10px]">
+                        <tr>
+                            <th class="px-5 py-3.5 text-left font-semibold">Subnet/Dept</th>
+                            <th class="px-5 py-3.5 text-left font-semibold">Req. Hosts</th>
+                            <th class="px-5 py-3.5 text-left font-semibold">Network Addr</th>
+                            <th class="px-5 py-3.5 text-left font-semibold">Subnet Mask</th>
+                            <th class="px-5 py-3.5 text-left font-semibold">CIDR</th>
+                            <th class="px-5 py-3.5 text-left font-semibold">Broadcast Addr</th>
+                            <th class="px-5 py-3.5 text-left font-semibold">Usable Range</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-900 bg-slate-950/20">
+                        <?php foreach ($results as $result): ?>
+                        <tr class="hover:bg-slate-900/35 transition-colors">
+                            <td class="px-5 py-4 font-display font-semibold text-slate-200">
+                                <?php echo htmlspecialchars($result['department']); ?>
+                            </td>
+                            <td class="px-5 py-4">
+                                <?php echo $result['hosts']; ?>
+                            </td>
+                            <td class="px-5 py-4 text-indigo-400">
+                                <?php echo $result['network']; ?>
+                            </td>
+                            <td class="px-5 py-4">
+                                <?php echo $result['subnet_mask']; ?>
+                            </td>
+                            <td class="px-5 py-4 font-bold text-purple-400">
+                                /<?php echo $result['cidr']; ?>
+                            </td>
+                            <td class="px-5 py-4 text-rose-400">
+                                <?php echo $result['broadcast']; ?>
+                            </td>
+                            <td class="px-5 py-4 text-emerald-400">
+                                <?php echo $result['first_usable']; ?> &rarr; <?php echo $result['last_usable']; ?>
+                                <span class="block text-[10px] text-slate-500 mt-0.5">(<?php echo $result['usable_count']; ?> usable IPs)</span>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 </main>
 
 <style>
 .router-box {
-    filter: drop-shadow(0 4px 6px rgba(59, 130, 246, 0.3));
-    animation: routerPulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 4px 10px rgba(79, 70, 229, 0.4));
+    animation: routerPulse 2.5s ease-in-out infinite;
 }
 
 @keyframes routerPulse {
     0%, 100% {
-        filter: drop-shadow(0 4px 6px rgba(59, 130, 246, 0.3));
+        filter: drop-shadow(0 4px 6px rgba(79, 70, 229, 0.3));
     }
     50% {
-        filter: drop-shadow(0 8px 12px rgba(59, 130, 246, 0.5));
+        filter: drop-shadow(0 8px 16px rgba(79, 70, 229, 0.6));
     }
 }
 
 .dept-node {
     animation: fadeInScale 0.6s ease-out;
-    filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.4));
+    filter: drop-shadow(0 4px 8px rgba(192, 132, 252, 0.3));
 }
 
 @keyframes fadeInScale {
@@ -422,7 +436,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 .network-line {
-    filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.3));
+    filter: drop-shadow(0 2px 4px rgba(129, 140, 248, 0.2));
 }
 </style>
 
@@ -432,14 +446,14 @@ let deptCount = 1;
 function addDepartment() {
     const container = document.getElementById('departments');
     const row = document.createElement('div');
-    row.className = 'department-row mb-3 flex gap-2';
+    row.className = 'department-row flex gap-2';
     row.innerHTML = `
         <input type="text" name="dept_name_${deptCount}" placeholder="Department Name" required
-               class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+               class="flex-grow bg-slate-950/85 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all text-xs">
         <input type="number" name="dept_hosts_${deptCount}" placeholder="Hosts" min="1" required
-               class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+               class="w-24 bg-slate-950/85 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-mono text-xs">
         <button type="button" onclick="removeDepartment(this)" 
-                class="text-red-600 hover:text-red-800 px-3">
+                class="text-rose-500 hover:text-rose-400 px-2 font-bold">
             ✕
         </button>
     `;
@@ -455,25 +469,6 @@ function removeDepartment(btn) {
         alert('You must have at least one department.');
     }
 }
-
-// Animate data packets along network lines
-document.addEventListener('DOMContentLoaded', function() {
-    const packets = document.querySelectorAll('.data-packet');
-    packets.forEach((packet, index) => {
-        const parent = packet.parentElement;
-        const line = parent.querySelector('.network-line');
-        if (line) {
-            const x1 = parseFloat(line.getAttribute('x1'));
-            const y1 = parseFloat(line.getAttribute('y1'));
-            const x2 = parseFloat(line.getAttribute('x2'));
-            const y2 = parseFloat(line.getAttribute('y2'));
-            const dx = x2 - x1;
-            const dy = y2 - y1;
-            packet.style.setProperty('--tx', dx + 'px');
-            packet.style.setProperty('--ty', dy + 'px');
-        }
-    });
-});
 </script>
 
 <?php include 'includes/footer.php'; ?>
